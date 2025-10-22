@@ -1,0 +1,45 @@
+<!-- templates/cart.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Carrito — FruttiExpress</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    {% include 'index_header.html' %}
+    <main class="container">
+      <h2>Carrito</h2>
+      {% if items %}
+        <table class="cart-table">
+          <thead><tr><th>Producto</th><th>Cantidad</th><th>Detalles</th><th>Subtotal</th><th></th></tr></thead>
+          <tbody>
+            {% for it in items %}
+              <tr>
+                <td>{{ it.product['nombre'] }}</td>
+                <td>{{ it.cantidad }} {{ it.product['unidad'] }}</td>
+                <td>Tamaño: {{ it.tamanio }} / Opción: {{ it.opcion }}</td>
+                <td>${{ '%.2f'|format(it.subtotal) }}</td>
+                <td><a href="{{ url_for('cart_remove', pid=it.product['id']) }}" class="btn small">Eliminar</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="checkout-box">
+          <p>Total: <strong>${{ '%.2f'|format(total) }}</strong></p>
+          <form action="{{ url_for('checkout') }}" method="post">
+            <label>Notas pertinentes:
+              <textarea name="notas" placeholder="Horarios, peticiones, etc."></textarea>
+            </label>
+            <button class="btn" type="submit">Comprar</button>
+          </form>
+        </div>
+      {% else %}
+        <p>El carrito está vacío.</p>
+      {% endif %}
+    </main>
+    {% include 'index_footer.html' %}
+  </body>
+</html>

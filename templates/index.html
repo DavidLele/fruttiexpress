@@ -1,0 +1,119 @@
+<!-- templates/index.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FruttiExpress — Inicio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <header class="banner">
+      <div class="container header-inner">
+        <div class="brand" onclick="location.href='/'">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="FruttiExpress" class="logo">
+          <h1>FruttiExpress</h1>
+        </div>
+        <form class="search" action="{{ url_for('buscar') }}" method="get">
+          <input name="q" placeholder="Buscar frutas, verduras..." required>
+          <button type="submit">Buscar</button>
+        </form>
+        <nav class="actions">
+          <a href="{{ url_for('cart') }}" class="btn">Carrito</a>
+          {% if user %}
+            <a href="{{ url_for('perfil') }}" class="btn">{{ user['nombre'] }}</a>
+            <a href="{{ url_for('logout') }}" class="btn">Cerrar sesión</a>
+          {% else %}
+            <a href="{{ url_for('register') }}" class="btn">Registrarse</a>
+            <a href="{{ url_for('login') }}" class="btn">Iniciar sesión</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="carousels">
+        <div class="carousel-block">
+          <h2><a href="{{ url_for('categoria', nombre='Frutas') }}">Frutas</a></h2>
+          <div class="carousel">
+            {% for p in frutas %}
+              <div class="card">
+                <a href="{{ url_for('producto', pid=p['id']) }}">
+                  <img src="{{ url_for('static', filename='images/' ~ (p['imagen'] or 'placeholder.jpg')) }}" alt="{{ p['nombre'] }}">
+                  <div class="card-info">
+                    <div class="name">{{ p['nombre'] }}</div>
+                    <div class="price">${{ '%.2f'|format(p['precio']) }}</div>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="carousel-block">
+          <h2><a href="{{ url_for('categoria', nombre='Verduras') }}">Verduras</a></h2>
+          <div class="carousel">
+            {% for p in verduras %}
+              <div class="card">
+                <a href="{{ url_for('producto', pid=p['id']) }}">
+                  <img src="{{ url_for('static', filename='images/' ~ (p['imagen'] or 'placeholder.jpg')) }}" alt="{{ p['nombre'] }}">
+                  <div class="card-info">
+                    <div class="name">{{ p['nombre'] }}</div>
+                    <div class="price">${{ '%.2f'|format(p['precio']) }}</div>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="carousel-block">
+          <h2><a href="{{ url_for('categoria', nombre='Tuberculos') }}">Tubérculos</a></h2>
+          <div class="carousel">
+            {% for p in tuberculos %}
+              <div class="card">
+                <a href="{{ url_for('producto', pid=p['id']) }}">
+                  <img src="{{ url_for('static', filename='images/' ~ (p['imagen'] or 'placeholder.jpg')) }}" alt="{{ p['nombre'] }}">
+                  <div class="card-info">
+                    <div class="name">{{ p['nombre'] }}</div>
+                    <div class="price">${{ '%.2f'|format(p['precio']) }}</div>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="carousel-block">
+          <h2><a href="{{ url_for('categoria', nombre='Otro') }}">Otro</a></h2>
+          <div class="carousel">
+            {% for p in otro %}
+              <div class="card">
+                <a href="{{ url_for('producto', pid=p['id']) }}">
+                  <img src="{{ url_for('static', filename='images/' ~ (p['imagen'] or 'placeholder.jpg')) }}" alt="{{ p['nombre'] }}">
+                  <div class="card-info">
+                    <div class="name">{{ p['nombre'] }}</div>
+                    <div class="price">${{ '%.2f'|format(p['precio']) }}</div>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="about">
+          <a href="{{ url_for('index') }}">Sobre nosotros</a>
+          <p>Copyright 2025 — FruttiExpress</p>
+          <p>Cra 3 con Calle 20, Cartago, Valle del Cauca, Colombia</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,303 @@
+/* static/css/style.css */
+/* 🌿 FruttiExpress - Estilo actualizado con imágenes uniformes */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+:root{
+  --verde:#2e8b57;
+  --naranja:#ff8c42;
+  --amarillo:#ffd26a;
+  --rojo:#e07a5f;
+  --blanco:#ffffff;
+  --gris:#f2f2f2;
+  --texto:#333;
+  --sombra: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+*{box-sizing:border-box;}
+body{
+  font-family:'Montserrat',sans-serif;
+  color:var(--texto);
+  margin:0;
+  background:var(--gris);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+.container{max-width:1200px;margin:0 auto;padding:16px;}
+
+/* ---------- HEADER ---------- */
+header.banner{
+  background:var(--blanco);
+  position:sticky;
+  top:0;
+  z-index:30;
+  box-shadow:var(--sombra);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:12px;
+  flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo{width:48px;height:48px;object-fit:contain;border-radius:8px;box-shadow:var(--sombra);padding:4px;}
+
+.search{
+  flex:1;
+  display:flex;
+  gap:6px;
+  min-width:220px;
+}
+.search input{
+  flex:1;
+  padding:10px 12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  outline:none;
+}
+.search button{
+  background:var(--verde);
+  color:var(--blanco);
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:var(--sombra);
+}
+
+.actions{display:flex;gap:8px;flex-wrap:wrap;}
+.btn{
+  background:var(--naranja);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:8px;
+  text-decoration:none;
+  display:inline-block;
+  box-shadow:var(--sombra);
+  border:none;
+  cursor:pointer;
+  transition:all .2s ease-in-out;
+}
+.btn.small{padding:6px 8px;font-size:12px;}
+.btn:hover{opacity:0.9;transform:translateY(-1px);}
+
+/* ---------- MAIN CONTENT ---------- */
+main{
+  padding:30px 20px;
+  background:var(--blanco);
+  border-radius:16px;
+  box-shadow:var(--sombra);
+  margin:30px auto;
+  width:90%;
+  flex:1;
+}
+
+.carousels{
+  display:grid;
+  gap:30px;
+}
+.carousel-block{
+  background:var(--blanco);
+  border-radius:16px;
+  box-shadow:var(--sombra);
+  padding:20px;
+}
+.carousel-block h2{
+  margin:0 0 12px 8px;
+  font-size:20px;
+  color:var(--verde);
+  border-left:6px solid var(--verde);
+  padding-left:8px;
+}
+.carousel{
+  display:flex;
+  gap:16px;
+  overflow:auto;
+  padding-bottom:6px;
+  scroll-behavior:smooth;
+}
+
+/* ---------- PRODUCT CARDS ---------- */
+.card{
+  min-width:180px;
+  background:var(--blanco);
+  border-radius:12px;
+  padding:8px;
+  box-shadow:var(--sombra);
+  flex-shrink:0;
+  transition:transform .2s ease-in-out;
+}
+.card:hover{
+  transform:translateY(-4px);
+}
+
+/* 👇 Mejora: imágenes con tamaño uniforme */
+.card img{
+  width:100%;
+  height:180px;            /* altura igual para todas las imágenes */
+  object-fit:cover;        /* recorta sin deformar */
+  object-position:center;  /* centra el recorte */
+  border-radius:10px;
+  background:#f0f0f0;      /* fondo neutro si hay zonas vacías */
+  display:block;
+}
+
+.card-info{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:8px;
+}
+.card .name{
+  font-weight:600;
+  font-size:14px;
+}
+.card .price{
+  font-weight:700;
+  color:var(--verde);
+}
+
+/* ---------- CATEGORY GRID ---------- */
+.grid-products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
+}
+.product-listing{
+  background:var(--blanco);
+  padding:12px;
+  border-radius:12px;
+  box-shadow:var(--sombra);
+  transition:transform .2s ease-in-out;
+}
+.product-listing:hover{transform:translateY(-4px);}
+.product-listing img{
+  width:100%;
+  height:180px;            /* mismo tamaño también en vistas de categoría */
+  object-fit:cover;
+  object-position:center;
+  border-radius:10px;
+  background:#f0f0f0;
+}
+.product-listing .info{padding-top:8px;}
+.product-listing .price{color:var(--verde);font-weight:700;}
+
+/* ---------- PRODUCT PAGE ---------- */
+.product-page .product-detail{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.product-page .left{
+  flex:1;
+  min-width:240px;
+}
+.product-page .left img{
+  width:100%;
+  height:350px;           /* recuadro fijo para imagen individual */
+  object-fit:cover;
+  object-position:center;
+  border-radius:12px;
+  box-shadow:var(--sombra);
+}
+.product-page .right{
+  flex:1;
+  min-width:280px;
+}
+.add-form label{
+  display:block;
+  margin-bottom:8px;
+  font-weight:600;
+}
+.add-form input, 
+.add-form select, 
+.form input, 
+.form textarea{
+  width:100%;
+  padding:8px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-family:'Montserrat',sans-serif;
+}
+.add-form .actions{margin-top:10px;}
+.descripcion p{color:#444;line-height:1.4;}
+
+/* ---------- FORMS ---------- */
+.form-page{
+  background:var(--blanco);
+  padding:24px;
+  border-radius:12px;
+  box-shadow:var(--sombra);
+  max-width:700px;
+  margin:40px auto;
+}
+.form label{
+  display:block;
+  margin-bottom:10px;
+  font-weight:500;
+}
+.form button{margin-top:8px;}
+
+/* ---------- CART ---------- */
+.cart-table{
+  width:100%;
+  border-collapse:collapse;
+  background:var(--blanco);
+  border-radius:12px;
+  box-shadow:var(--sombra);
+  margin-bottom:20px;
+}
+.cart-table th, 
+.cart-table td{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+}
+.checkout-box{
+  background:#fff;
+  padding:16px;
+  border-radius:12px;
+  box-shadow:var(--sombra);
+  margin-top:12px;
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer{
+  background:var(--blanco);
+  margin-top:40px;
+  padding:24px 0;
+  box-shadow:var(--sombra);
+}
+.footer-inner{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  gap:8px;
+}
+.about a{
+  font-weight:600;
+  color:var(--verde);
+  text-decoration:none;
+  margin-bottom:6px;
+  display:inline-block;
+}
+.about p{
+  margin:2px 0;
+  color:#666;
+  font-size:14px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:700px){
+  .header-inner{flex-direction:column;align-items:stretch;}
+  .search{order:2;width:100%;}
+  .actions{order:3;justify-content:flex-end;}
+  .product-page .product-detail{flex-direction:column;}
+  .card img{height:160px;}
+  main{width:95%;padding:20px;}
+}

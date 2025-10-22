@@ -1,0 +1,24 @@
+<!-- templates/admin_dashboard.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin — FruttiExpress</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    {% include 'index_header.html' %}
+    <main class="container">
+      <h2>Panel Administrador</h2>
+      <a href="{{ url_for('admin_products') }}" class="btn">Gestionar Productos</a>
+      <h3>Pedidos recientes</h3>
+      <ul>
+        {% for p in pedidos %}
+          <li><a href="{{ url_for('admin_order_detail', oid=p['id']) }}">Pedido #{{ p['id'] }} - Total ${{ '%.2f'|format(p['total']) }} - {{ p['created_at'] }}</a></li>
+        {% endfor %}
+      </ul>
+    </main>
+    {% include 'index_footer.html' %}
+  </body>
+</html>

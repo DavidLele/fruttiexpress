@@ -1,0 +1,24 @@
+<!-- templates/profile.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mi Perfil — FruttiExpress</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    {% include 'index_header.html' %}
+    <main class="container form-page">
+      <h2>Mi Perfil</h2>
+      <form method="post" class="form">
+        <label>Nombre<input name="nombre" value="{{ user['nombre'] }}" disabled></label>
+        <label>Dirección<input name="direccion" value="{{ user['direccion'] or '' }}"></label>
+        <label>Barrio<input name="barrio" value="{{ user['barrio'] or '' }}"></label>
+        <label>Teléfono<input name="telefono" value="{{ user['telefono'] or '' }}"></label>
+        <button type="submit" class="btn">Guardar / Modificar datos</button>
+      </form>
+    </main>
+    {% include 'index_footer.html' %}
+  </body>
+</html>

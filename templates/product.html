@@ -1,0 +1,73 @@
+<!-- templates/product.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ producto['nombre'] }} — FruttiExpress</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    {% include 'index_header.html' %}
+    <main class="container product-page">
+      <div class="product-detail">
+        <div class="left">
+          <img src="{{ url_for('static', filename='images/' ~ (producto['imagen'] or 'placeholder.jpg')) }}" alt="{{ producto['nombre'] }}">
+        </div>
+        <div class="right">
+          <h2>{{ producto['nombre'] }}</h2>
+          <div class="price">${{ '%.2f'|format(producto['precio']) }}</div>
+          <div class="stock">Disponible: {{ producto['stock'] }} {{ producto['unidad'] }}</div>
+
+          <form action="{{ url_for('cart_add') }}" method="post" class="add-form">
+            <input type="hidden" name="product_id" value="{{ producto['id'] }}">
+            <label>Cantidad:
+              <input type="number" name="cantidad" value="1" min="0.1" step="0.1" required>
+            </label>
+
+            <label><strong>Unidad:</strong></label>
+            <select name="unidad">
+              {% for u in producto['unidad'].split(',') %}
+              <option value="{{ u.strip() }}">{{ u.strip() }}</option>
+              {% endfor %}
+            </select>
+
+            {% if producto['tamanos'] %}
+            <label>Tamaño:
+              <select name="tamanio">
+                <option value="">--</option>
+                {% for t in producto['tamanos'].split(',') %}
+                  <option value="{{ t }}">{{ t }}</option>
+                {% endfor %}
+              </select>
+            </label>
+            {% endif %}
+
+            {% if producto['opciones'] %}
+            <label>Opciones:
+              <select name="opcion">
+                <option value="">--</option>
+                {% for o in producto['opciones'].split(',') %}
+                  <option value="{{ o }}">{{ o }}</option>
+                {% endfor %}
+              </select>
+            </label>
+            {% endif %}
+
+            <div class="actions">
+              <button type="submit" class="btn">Agregar al Carrito</button>
+            </div>
+          </form>
+
+          <section class="descripcion">
+            <h3>Descripción</h3>
+            <p>{{ producto['descripcion'] }}</p>
+          </section>
+
+        </div>
+      </div>
+    </main>
+    {% include 'index_footer.html' %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

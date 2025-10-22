@@ -1,0 +1,32 @@
+<!-- templates/category.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FruttiExpress — {{ categoria }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    {% include 'index_header.html' %}
+    <main class="container">
+      <h2 class="category-title">{{ categoria }}</h2>
+      <div class="grid-products">
+        {% for p in productos %}
+          <div class="product-listing">
+            <a href="{{ url_for('producto', pid=p['id']) }}">
+              <img src="{{ url_for('static', filename='images/' ~ (p['imagen'] or 'placeholder.jpg')) }}" alt="{{ p['nombre'] }}">
+              <div class="info">
+                <strong>{{ p['nombre'] }}</strong>
+                <div class="price">${{ '%.2f'|format(p['precio']) }}</div>
+                <div class="stock">Disponible: {{ p['stock'] }} {{ p['unidad'] }}</div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </main>
+    {% include 'index_footer.html' %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

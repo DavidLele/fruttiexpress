@@ -1,0 +1,56 @@
+<!-- templates/admin_orders.html -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pedido #{{ order['id'] }} — Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    {% include 'index_header.html' %}
+    <main class="container">
+      <h2>Pedido #{{ order['id'] }}</h2>
+
+      <section class="order-info">
+        <h3>Información del Cliente</h3>
+        <p><strong>Cliente:</strong> {{ order['cliente'] }}</p>
+        <p><strong>Correo:</strong> {{ order['email'] }}</p>
+        <p><strong>Teléfono:</strong> {{ order['telefono'] or 'No registrado' }}</p>
+        <p><strong>Dirección:</strong> {{ order['direccion'] or 'No registrada' }}</p>
+      </section>
+
+      <section class="order-details">
+        <h3>Detalles del Pedido</h3>
+        <p><strong>Total:</strong> ${{ '%.2f'|format(order['total']) }}</p>
+        <p><strong>Notas:</strong> {{ order['notas'] if order['notas'] else '—' }}</p>
+      </section>
+
+      <section class="order-items">
+        <h3>Productos del Pedido</h3>
+        <table class="cart-table">
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+          </tr>
+          {% for it in items %}
+          <tr>
+            <td>{{ it['nombre'] }}</td>
+            <td>{{ it['cantidad'] }}</td>
+            <td>{{ it['unidad'] }}</td>
+            <td>${{ '%.2f'|format(it['precio_unit']) }}</td>
+            <td>${{ '%.2f'|format(it['cantidad'] * it['precio_unit']) }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </section>
+
+      <a href="{{ url_for('admin_dashboard') }}" class="btn">← Volver al Panel</a>
+    </main>
+    {% include 'index_footer.html' %}
+  </body>
+</html>
+

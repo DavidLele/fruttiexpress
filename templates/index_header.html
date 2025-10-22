@@ -1,0 +1,26 @@
+<!-- templates/index_header.html -->
+<header class="banner">
+  <div class="container header-inner">
+    <div class="brand" onclick="location.href='/'">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="FruttiExpress" class="logo">
+      <h1>FruttiExpress</h1>
+    </div>
+    <form class="search" action="{{ url_for('buscar') }}" method="get">
+      <input name="q" placeholder="Buscar frutas, verduras..." required>
+      <button type="submit">Buscar</button>
+    </form>
+    <nav class="actions">
+      <a href="{{ url_for('cart') }}" class="btn">Carrito</a>
+      {% if user %}
+        {% if user['is_admin'] == 1 %}
+          <a href="{{ url_for('admin_dashboard') }}" class="btn">Admin</a>
+        {% endif %}
+        <a href="{{ url_for('perfil') }}" class="btn">{{ user['nombre'] }}</a>
+        <a href="{{ url_for('logout') }}" class="btn">Cerrar sesión</a>
+      {% else %}
+        <a href="{{ url_for('register') }}" class="btn">Registrarse</a>
+        <a href="{{ url_for('login') }}" class="btn">Iniciar sesión</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
